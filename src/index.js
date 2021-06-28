@@ -15,9 +15,32 @@ const FileList = ({ files }) => (
 
 const FileListItem = ({ file }) => (
 	<tr className='file-list-item'>
-		<td className='file-name'>{file.name}</td>{" "}
+		<FileName file={file} /> <CommitMessage commit={file.latestCommit} />{" "}
 	</tr>
 );
+
+function FileIcon({ file }) {
+	let icon = "fa-file-text-o";
+	if (file.type === "folder") {
+		icon = "fa-folder";
+	}
+	return (
+		<td className='file-icon'>
+			<i className={`fa ${icon}`} />{" "}
+		</td>
+	);
+}
+
+function FileName({ file }) {
+	return (
+		<>
+			<FileIcon file={file} />
+			<td className='file-name'>{file.name}</td>
+		</>
+	);
+}
+
+const CommitMessage = ({ commit }) => <td className='commit-message'>{commit.message} </td>;
 
 const testFiles = [
 	{
@@ -57,4 +80,16 @@ FileList.propTypes = {
 
 FileListItem.propTypes = {
 	file: PropTypes.object.isRequired,
+};
+
+FileIcon.propTypes = {
+	file: PropTypes.object.isRequired,
+};
+
+FileName.propTypes = {
+	file: PropTypes.object.isRequired,
+};
+
+CommitMessage.propTypes = {
+	commit: PropTypes.object.isRequired,
 };
