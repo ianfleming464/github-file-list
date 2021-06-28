@@ -7,12 +7,16 @@ const FileList = ({ files }) => (
 	<table className='file-list'>
 		<tbody>
 			{files.map((file) => (
-				<tr className='file-list-item' key={file.id}>
-					<td className='file-name'>{file.name}</td>{" "}
-				</tr>
+				<FileListItem key={file.id} file={file} />
 			))}
 		</tbody>
 	</table>
+);
+
+const FileListItem = ({ file }) => (
+	<tr className='file-list-item'>
+		<td className='file-name'>{file.name}</td>{" "}
+	</tr>
 );
 
 const testFiles = [
@@ -44,10 +48,13 @@ const testFiles = [
 		},
 	},
 ];
-// put the ReactDOM.render call here
-// pass testFiles as FileList's file prop
+
 ReactDOM.render(<FileList files={testFiles} />, document.querySelector("#root"));
 
 FileList.propTypes = {
 	files: PropTypes.array,
+};
+
+FileListItem.propTypes = {
+	file: PropTypes.object.isRequired,
 };
